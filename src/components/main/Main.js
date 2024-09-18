@@ -10,7 +10,6 @@ window.addEventListener("DOMContentLoaded", fetchUsersData);
 
 export async function fetchUsersData(){
     spinnerEl.classList.add("visible");
-    console.log(state.page);
 
     try {
         const res = await fetch(`${API_URL}/?results=60`);
@@ -27,8 +26,6 @@ export async function fetchUsersData(){
 
         spinnerEl.classList.remove("visible");
 
-        console.log(state.usersArray);
-
     }
     catch(err){
         throw new Error(err);
@@ -42,20 +39,21 @@ export async function fetchUsersData(){
 
 
 export function displayUsers(array){
+    console.log(state.mode);
 
-    array.slice((state.page - 1) * 12, state.page *  12).forEach((element, i) => {
+    array.slice((state.page - 1) * state.usersPerPage, state.page * state.usersPerPage).forEach((element) => {
 
         const segment = `
-            <div class="main__section__box">
+            <div class="${state.mode ? "main__section__box dark" : "main__section__box"}">
 
                 <img src="${element.picture.large}" alt="${element.dob.date}" class="main__section__box--img" />
 
                 <div class="main__section__box__paragraph-container" >
-                    <h2>${element.name.first} ${element.name.last}</h2>
-                    <p>${element.email}</p>
+                    <h2 class="main__section__box__paragraph-container--h2" >${element.name.first} ${element.name.last}</h2>
+                    <p class="main__section__box__paragraph-container--p ${state.mode ? "text-dark" : ""}" >${element.email}</p>
                 </div>
 
-                <p class="main__section__box--joined" >Joined ${element.registered.date}</p>
+                <p class="${state.mode ? "text-dark main__section__box--joined" : "main__section__box--joined"} " >Joined ${element.registered.date}</p>
 
             </div>
         `;
