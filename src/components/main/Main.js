@@ -32,6 +32,7 @@ export async function fetchUsersData(){
     }
     finally{
         spinnerEl.classList.remove("visible");
+        console.log("All users: ", state.usersArray);
     }
 }
 
@@ -39,7 +40,9 @@ export async function fetchUsersData(){
 
 
 export function displayUsers(array){
-    console.log(state.mode);
+    console.log("rendered!");
+
+    mainSectionEl.innerHTML = ""
 
     array.slice((state.page - 1) * state.usersPerPage, state.page * state.usersPerPage).forEach((element) => {
 

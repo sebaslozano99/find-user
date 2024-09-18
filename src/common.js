@@ -9,7 +9,7 @@ export const spinnerEl = document.querySelector(".spinner");
 export const nextBtnEl = document.querySelector(".main__btn-container--btn.next");
 export const prevBtnEl = document.querySelector(".main__btn-container--btn.prev");
 export const modeBtnEl = document.querySelector(".header--mode-btn");
-
+export const inputEl = document.querySelector(".header__form--input");
 
 // STATE VARIABLES 
 export const state = {

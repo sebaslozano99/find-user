@@ -19,8 +19,6 @@ nextBtnEl.addEventListener("click", () => {
 
     mainSectionEl.scrollIntoView(true);
 
-    mainSectionEl.innerHTML = "";
-
     displayUsers(state.usersArray);
 
 })
@@ -37,8 +35,6 @@ prevBtnEl.addEventListener("click", () => {
     if(state.page < state.totalPages) nextBtnEl.disabled = false;
 
     mainSectionEl.scrollIntoView(true);
-
-    mainSectionEl.innerHTML = "";
 
     displayUsers(state.usersArray);
 
