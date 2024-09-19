@@ -7,6 +7,8 @@
     font-family: "Roboto Mono", monospace;
 }
 
+
+
 :root {
     --clr-mainLightBackColor: #E2ECFA;
     --clr-mainDarkBackColor: #252525;
@@ -26,14 +28,22 @@ html {
     scroll-behavior: smooth;
 }
 
+
+
 body {
     background-color: var(--clr-mainLightBackColor);
     transition: all ease-in-out .3s;
 }
 
+
+
 body.dark{
     background-color: var(--clr-mainDarkBackColor);
 }
+
+
+
+
 
 .header {
     width: 100%;
@@ -45,14 +55,18 @@ body.dark{
 }
 
 
+
 .header__logo {
     color: var(--clr-lightLogoAndTextColor);
     font-weight: bold;
 }
 
+
+
 .text-dark {
     color: var(--clr-darkLogoAndTextColor);
 }
+
 
 
 .header__form {
@@ -62,11 +76,13 @@ body.dark{
 }
 
 
+
 .header__form--input {
     padding: 5px;
     min-width: 20em;
     outline: none;
 }
+
 
 
 .header__form--btn {
@@ -78,6 +94,8 @@ body.dark{
     color: #fff;
     width: 3em;
 }
+
+
 
 .header--mode-btn {
     width: 5em;
@@ -92,6 +110,7 @@ body.dark{
     background-color: transparent;
     color: var(--clr-lightLogoAndTextColor);
 }
+
 
 
 .header--mode-btn .hidden {
@@ -113,6 +132,7 @@ body.dark{
 }
 
 
+
 .main .main__section {
     /* border: 3px solid gold; */
     width: 85%;
@@ -126,17 +146,32 @@ body.dark{
 
 
 
+.main__information {
+    /* border: 1px solid red; */
+    width: 85%;
+    height: 2em;
+    display: flex;
+    justify-content: flex-end;
+    gap: 2em;
+    align-items: center;
+    font-size: 0.8em;
+}
+
+
+
 .main__section__box {
     border-radius: 5px;
-    background-color: #fff;
+    /* background-color: #fff; */
     box-shadow: 1px 1px 5px rgba(108, 113, 120, 0.4);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 1em;
-    /* background-color: var(--clr-darkBackCards); */
+    background-color: var(--clr-lightBackCards);
 }
+
+
 
 .dark {
     background-color: var(--clr-darkBackCards);
@@ -147,10 +182,12 @@ body.dark{
 
 
 
+
 .main__section__box--img {
     border-radius: 50%;
     width: 30%;
 }
+
 
 
 .main__section__box__paragraph-container {
@@ -159,10 +196,13 @@ body.dark{
     gap: 0.5em;
 }
 
+
+
 .main__section__box__paragraph-container--h2 {
     color: var(--clr-lightTileColor);
     font-size: 1.5em;
 }
+
 
 
 .main__section__box__paragraph-container--p {
@@ -170,10 +210,13 @@ body.dark{
     font-size: 0.8em;
 }
 
+
+
 .main__section__box--joined {
     font-size: 0.7em;
     margin-top: 1.5em;
 }
+
 
 
 
@@ -189,9 +232,13 @@ body.dark{
     padding: 2em 0;
 }
 
+
+
 .main__btn-container--btn {
     cursor: pointer;
 }
+
+
 
 .main__btn-container--btn:disabled {
     cursor: default;
@@ -219,9 +266,14 @@ body.dark{
     display: none;
 }
 
+
+
 .spinner.visible {
     display: block;
 }
+
+
+
 
 
 /* Safari */

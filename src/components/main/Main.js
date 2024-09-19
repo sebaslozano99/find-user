@@ -1,5 +1,9 @@
-import { mainSectionEl, spinnerEl, API_URL, state } from "../../common.js";
-import { renderButtons } from "../modeBtn/ModeBtn.js";
+import { mainSectionEl, inputEl, spinnerEl, usersInfoEl, pageInfoEl, prevBtnEl, API_URL, state, nextBtnEl } from "../../common.js";
+import { renderButtons } from "../Buttons/Button.js";
+
+
+
+
 
 // At first render, we fetch the data and render it
 window.addEventListener("DOMContentLoaded", fetchUsersData);
@@ -7,10 +11,10 @@ window.addEventListener("DOMContentLoaded", fetchUsersData);
 
 
 
-export async function fetchUsersData(){
+//Function to fetch all the data
+export async function fetchUsersData(){ 
 
-    spinnerEl.classList.add("visible");
-    renderButtons(state.usersArray);
+    updatePartUI(true)
 
     try {
         const res = await fetch(`${API_URL}/?results=60`);
@@ -33,30 +37,78 @@ export async function fetchUsersData(){
         throw new Error(err);
     }
     finally{
-        spinnerEl.classList.remove("visible");
-        renderButtons(state.usersArray);
+        updatePartUI(false);
+        usersInfoEl.innerText = `Total users: ${state.usersArray.length}`;
+        pageInfoEl.innerText = `page: ${state.page}`;
     }
 }
 
 
 
 
+
+//This function is used in the 1st render, whenever user move to a different page, and whenever user uses the search bar
 export function displayUsers(array){
 
     mainSectionEl.innerHTML = "";
 
-    if(state.usersInput){
+    //if user is searching in the input field
+    if(state.usersInput !== ""){
 
-        array.filter((user) => user.name.first.toLowerCase().includes(state.usersInput.toLowerCase()) || user.name.last.toLowerCase().includes(state.usersInput.toLowerCase())).forEach((element) => {
+        //filter objects in which either properties name or lastName includes the letters that the user is inputing
+        const filteredArray =  array.filter((user) => user.name.first.toLowerCase().includes(state.usersInput.toLowerCase()) || user.name.last.toLowerCase().includes(state.usersInput.toLowerCase()));
 
-            HTML(element);
+        usersInfoEl.innerText = `Total users: ${filteredArray.length}`;
 
-        })
+        if(filteredArray.length > 12){
 
-        renderButtons(array.filter((user) => user.name.first.toLowerCase().includes(state.usersInput.toLowerCase()) || user.name.last.toLowerCase().includes(state.usersInput.toLowerCase())));
+            state.isGreater = true;
+
+            //In case user had previously moved to a different page, and then searched user, we set it back to 1 in order to avoid glitches
+            state.page = 1;
+
+            prevBtnEl.disabled = state.pageWhenSearchIsGreaterThanTwelve === 1 ? true : false;
+            nextBtnEl.disabled = state.pageWhenSearchIsGreaterThanTwelve === state.totalPages ? true : false;
+
+            //Calculate how many users will be in each page, based done the length of the filteredArray
+            state.usersPerPage = Math.round(filteredArray.length / state.totalPages);
+
+            filteredArray.slice((state.pageWhenSearchIsGreaterThanTwelve - 1) * state.usersPerPage, state.pageWhenSearchIsGreaterThanTwelve * state.usersPerPage).forEach((element) => {
+
+                HTML(element);
+        
+            });
+
+        }
+        else {
+            state.isGreater = false;
+
+            filteredArray.forEach((element) => {
+    
+                HTML(element);
+    
+            })
+        }
+
+        renderButtons(filteredArray);
 
         return;
     }
+
+    usersInfoEl.innerText = `Total users: ${array.length}`;
+
+    //In case user had previously filtered users with search bar, and then clears it, we set "isGreater" var, beack to its default value in order to avoid bugs
+    state.isGreater = false;
+
+    //In case user filtered use with searchBar, and moved to a different page in the filtered array, we move our MAIN page var back to its default state in order to avoid bugs
+    state.pageWhenSearchIsGreaterThanTwelve = 1;
+
+    prevBtnEl.disabled = state.page === 1 ? true : false;
+    nextBtnEl.disabled = state.page === state.totalPages ? true : false;
+
+
+    //If user had previously filtered user with the searchbar, and the result returned an array with more than 12 users, it changed our "usersPerPage" var based on the filtered array, thus re-calculate it, based on the complete length of the main array
+    state.usersPerPage = state.usersArray.length / 5;
 
     array.slice((state.page - 1) * state.usersPerPage, state.page * state.usersPerPage).forEach((element) => {
 
@@ -66,6 +118,15 @@ export function displayUsers(array){
 
     renderButtons(array);
 }
+
+
+
+
+
+//OTHER FUNCTIONS -----
+
+
+
 
 
 // Above we loop over an array of objects, and each element will be passed to this function
@@ -89,5 +150,37 @@ function HTML(element){
     mainSectionEl.insertAdjacentHTML("beforeend", segment);
 }
 
+
+
+
+
+function updatePartUI(boolean = true){
+    if(boolean){
+        spinnerEl.classList.add("visible");
+    }
+    else{
+        spinnerEl.classList.remove("visible");
+    }
+    renderButtons(state.usersArray);
+    inputEl.disabled = boolean;
+    usersInfoEl.style.display = boolean ? "none" : "block";
+    pageInfoEl.style.display = boolean ? "none" : "block";
+
+}
+
+//TRUE
+// spinnerEl.classList.add("visible");
+// renderButtons(state.usersArray);
+// inputEl.disabled = true;
+// usersInfoEl.style.display = "none";
+// pageInfoEl.style.display = "none";
+
+    
+//FALSE
+// spinnerEl.classList.remove("visible");
+// renderButtons(state.usersArray);
+// inputEl.disabled = false;
+// usersInfoEl.style.display = "block";
+// pageInfoEl.style.display = "block";
 
 export default displayUsers;

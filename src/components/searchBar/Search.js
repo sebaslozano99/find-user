@@ -10,5 +10,4 @@ function filterUser(e){
 
     state.usersInput = e.target.value.trim();
     displayUsers(state.usersArray);
-    
 }
