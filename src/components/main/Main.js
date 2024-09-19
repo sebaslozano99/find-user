@@ -40,9 +40,32 @@ export async function fetchUsersData(){
 
 
 export function displayUsers(array){
-    console.log("rendered!");
 
-    mainSectionEl.innerHTML = ""
+    mainSectionEl.innerHTML = "";
+
+    if(state.usersInput){
+
+        array.filter((user) => user.name.first.toLowerCase().includes(state.usersInput.toLowerCase()) || user.name.last.toLowerCase().includes(state.usersInput.toLowerCase())).forEach((element) => {
+            const segment = `
+            <div class="${state.mode ? "main__section__box dark" : "main__section__box"}">
+
+                <img src="${element.picture.large}" alt="${element.dob.date}" class="main__section__box--img" />
+
+                <div class="main__section__box__paragraph-container" >
+                    <h2 class="main__section__box__paragraph-container--h2" >${element.name.first} ${element.name.last}</h2>
+                    <p class="main__section__box__paragraph-container--p ${state.mode ? "text-dark" : ""}" >${element.email}</p>
+                </div>
+
+                <p class="${state.mode ? "text-dark main__section__box--joined" : "main__section__box--joined"} " >Joined ${element.registered.date}</p>
+
+            </div>
+        `;
+
+        mainSectionEl.insertAdjacentHTML("beforeend", segment);
+        })
+
+        return;
+    }
 
     array.slice((state.page - 1) * state.usersPerPage, state.page * state.usersPerPage).forEach((element) => {
 

@@ -18,6 +18,7 @@ export const state = {
     totalPages: 5,
     usersPerPage: null,
     mode: false,
+    usersInput: "",
 }
 
 

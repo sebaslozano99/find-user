@@ -8,16 +8,7 @@ inputEl.addEventListener("input", filterUser);
 
 function filterUser(e){
 
-    const usersInput = e.target.value;
-
-    const filteredArray = state.usersArray.slice((state.page - 1) * state.usersPerPage, state.page * state.usersPerPage).filter((user) => user.name.first.toLowerCase().includes(usersInput.toLowerCase()) || user.name.last.toLowerCase().includes(usersInput.toLowerCase()));
-
-    displayUsers(filteredArray);
-
-    if(!usersInput) {
-        console.log("!usersInput");
-        displayUsers(state.usersArray);
-    }
-    console.log(filteredArray);
+    state.usersInput = e.target.value.trim();
+    displayUsers(state.usersArray);
     
 }
