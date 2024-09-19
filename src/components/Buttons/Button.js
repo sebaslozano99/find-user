@@ -2,6 +2,8 @@ import { nextBtnEl, prevBtnEl, mainSectionEl, state } from "../../common.js";
 import { displayUsers } from "../main/Main.js";
 
 
+
+
 if(state.page === 1) prevBtnEl.disabled = true;
 
 

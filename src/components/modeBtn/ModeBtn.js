@@ -1,4 +1,4 @@
-import { mainSectionEl, modeBtnEl, state } from "../../common.js";
+import { mainSectionEl, modeBtnEl, nextBtnEl, prevBtnEl, state } from "../../common.js";
 import displayUsers from "../main/Main.js";
 
 
@@ -38,4 +38,22 @@ function changeMode(){
     displayUsers(state.usersArray);
 }
 
+
+
+
+// Other functions 
+
+// Whenever the user is searching, and the returned list is slower than 13, the pagination button will be removed
+export function renderButtons(array){
+    if(!array.length || array.length < 13){
+        console.log("array", array);
+        nextBtnEl.style.display = "none";
+        prevBtnEl.style.display = "none";
+    }
+    else {
+        console.log("array", array);
+        nextBtnEl.style.display = "block";
+        prevBtnEl.style.display = "block"; 
+    }
+}
 

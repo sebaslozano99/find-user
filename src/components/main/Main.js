@@ -1,6 +1,5 @@
 import { mainSectionEl, spinnerEl, API_URL, state } from "../../common.js";
-
-
+import { renderButtons } from "../modeBtn/ModeBtn.js";
 
 // At first render, we fetch the data and render it
 window.addEventListener("DOMContentLoaded", fetchUsersData);
@@ -11,6 +10,7 @@ window.addEventListener("DOMContentLoaded", fetchUsersData);
 export async function fetchUsersData(){
 
     spinnerEl.classList.add("visible");
+    renderButtons(state.usersArray);
 
     try {
         const res = await fetch(`${API_URL}/?results=60`);
@@ -34,6 +34,7 @@ export async function fetchUsersData(){
     }
     finally{
         spinnerEl.classList.remove("visible");
+        renderButtons(state.usersArray);
     }
 }
 
@@ -52,6 +53,8 @@ export function displayUsers(array){
 
         })
 
+        renderButtons(array.filter((user) => user.name.first.toLowerCase().includes(state.usersInput.toLowerCase()) || user.name.last.toLowerCase().includes(state.usersInput.toLowerCase())));
+
         return;
     }
 
@@ -60,6 +63,8 @@ export function displayUsers(array){
         HTML(element);
 
     });
+
+    renderButtons(array);
 }
 
 
