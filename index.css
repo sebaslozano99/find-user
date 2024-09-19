@@ -13,7 +13,7 @@
 
     --clr-lightTileColor: #1983FF;
 
-    --clr-darkBackCards: #414141;
+    --clr-darkBackCards: #393939;
     --clr-lightBackCards: #ffffff;
 
     --clr-lightLogoAndTextColor: #394552;
@@ -117,7 +117,7 @@ body.dark{
     /* border: 3px solid gold; */
     width: 85%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-template-rows: repeat(1, 300px);
     grid-auto-rows: 300px;
     gap: 2em;
@@ -140,6 +140,8 @@ body.dark{
 
 .dark {
     background-color: var(--clr-darkBackCards);
+    box-shadow: 1px 1px 5px rgba(133, 133, 133, 0.4);
+
 }
 
 
@@ -152,23 +154,24 @@ body.dark{
 
 
 .main__section__box__paragraph-container {
-    /* border: 1px solid red; */
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
 }
 
 .main__section__box__paragraph-container--h2 {
     color: var(--clr-lightTileColor);
-    font-size: 20px;
+    font-size: 1.5em;
 }
 
 
 .main__section__box__paragraph-container--p {
     color: var(--clr-lightLogoAndTextColor);
-    font-size: 12px;
+    font-size: 0.8em;
 }
 
 .main__section__box--joined {
-    font-size: 12px;
+    font-size: 0.7em;
     margin-top: 1.5em;
 }
 

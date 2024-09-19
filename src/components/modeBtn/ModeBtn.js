@@ -2,8 +2,6 @@ import { mainSectionEl, modeBtnEl, state } from "../../common.js";
 import displayUsers from "../main/Main.js";
 
 
-// Variable
-
 
 
 //event listener
@@ -24,6 +22,7 @@ function changeMode(){
 
         document.querySelector("body").classList.add("dark");
         document.querySelector(".header__logo").classList.add("text-dark");
+
     }
     else{
         modeBtnEl.querySelector(".bxs-moon").classList.remove("hidden");
@@ -38,3 +37,5 @@ function changeMode(){
     mainSectionEl.innerHTML = "";
     displayUsers(state.usersArray);
 }
+
+
