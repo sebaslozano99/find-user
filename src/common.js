@@ -13,6 +13,7 @@ export const modeBtnEl = document.querySelector(".header--mode-btn");
 export const inputEl = document.querySelector(".header__form--input");
 export const usersInfoEl = document.querySelector(".main__information--users");
 export const pageInfoEl = document.querySelector(".main__information--page");
+export const burgerEl = document.querySelector(".burger");
 
 // STATE VARIABLES 
 export const state = {

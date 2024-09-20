@@ -1,5 +1,5 @@
 import { nextBtnEl, prevBtnEl, mainEl, state, pageInfoEl } from "../../common.js";
-import { displayUsers } from "../main/Main.js";
+import  displayUsers  from "../main/Main.js";
 
 
 

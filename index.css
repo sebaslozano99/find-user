@@ -43,6 +43,41 @@ body.dark{
 
 
 
+/* ---------- BURGER MENU ---------- */
+
+
+
+.burger {
+    cursor: pointer;
+    display: none;
+    /* border: 1px solid red; */
+}
+
+.line {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--clr-lightLogoAndTextColor);
+    margin: 5px 0;
+    transition: all ease-in-out .5s;
+}
+
+.burger.active .lineOne {
+    transform: rotate(-45deg) translateY(10px);
+}   
+
+.burger.active .lineTwo {
+    opacity: 0;
+}
+
+.burger.active .lineThree {
+    transform: rotate(45deg) translateY(-10px);
+}
+
+
+
+/* ---------- BURGER MENU ---------- */
+
 
 
 .header {
@@ -109,6 +144,36 @@ body.dark{
     cursor: pointer;
     background-color: transparent;
     color: var(--clr-lightLogoAndTextColor);
+}
+
+
+
+@media(max-width: 750px){
+    .header {
+        justify-content: center;
+        gap: 2em;
+    }
+
+    .header__logo {
+        display: none;
+    }
+
+    .header__form {
+        min-width: 80%;
+    }
+
+    .header__form--input {
+        width: 100%;
+    }
+
+    .header--mode-btn {
+        display: none;
+    }
+
+    .burger {
+        display: block;
+    }
+
 }
 
 
