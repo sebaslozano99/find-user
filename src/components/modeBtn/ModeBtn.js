@@ -1,4 +1,4 @@
-import { mainSectionEl, modeBtnEl, state } from "../../common.js";
+import { mainSectionEl, modeBtnEl, usersInfoEl, pageInfoEl, state } from "../../common.js";
 import displayUsers from "../main/Main.js";
 
 
@@ -15,27 +15,19 @@ modeBtnEl.addEventListener("click", changeMode);
 
 function changeMode(){
     state.mode = !state.mode;
-    
-    if(state.mode){
-        modeBtnEl.querySelector(".bxs-sun").classList.remove("hidden");
-        modeBtnEl.querySelector(".bxs-moon").classList.add("hidden");
 
-        document.querySelector("body").classList.add("dark");
-        document.querySelector(".header__logo").classList.add("text-dark");
+    modeBtnEl.querySelector(".bxs-sun").classList.toggle("hidden");
+    modeBtnEl.querySelector(".bxs-moon").classList.toggle("hidden");
 
-    }
-    else{
-        modeBtnEl.querySelector(".bxs-moon").classList.remove("hidden");
-        modeBtnEl.querySelector(".bxs-sun").classList.add("hidden");
+    document.querySelector("body").classList.toggle("dark");
+    document.querySelector(".header__logo").classList.toggle("text-dark");
 
-        document.querySelector("body").classList.remove("dark");
-        document.querySelector(".header__logo").classList.remove("text-dark");
-
-
-    }
+    usersInfoEl.classList.toggle("text-dark");
+    pageInfoEl.classList.toggle("text-dark");
 
     mainSectionEl.innerHTML = "";
     displayUsers(state.usersArray);
 }
+
 
 

@@ -1,9 +1,9 @@
-import { nextBtnEl, prevBtnEl, mainSectionEl, state } from "../../common.js";
+import { nextBtnEl, prevBtnEl, mainEl, state, pageInfoEl } from "../../common.js";
 import { displayUsers } from "../main/Main.js";
 
 
 
-
+//1st render -- 
 if(state.page === 1) prevBtnEl.disabled = true;
 
 
@@ -11,36 +11,9 @@ if(state.page === 1) prevBtnEl.disabled = true;
 
 nextBtnEl.addEventListener("click", () => {
 
-    //If user is filtering, and returned array contains more than 12 users, we'll update another page variable, otherwise just the regular
-    if(!state.isGreater){
+    NextPrevBtn(true);
 
-        console.log(state.pageWhenSearchIsGreaterThanTwelve);
-
-        state.page++;
-
-        console.log("page: ", state.page);
-    
-        if(state.page > 1) prevBtnEl.disabled = false;
-    
-        if(state.page === state.totalPages) nextBtnEl.disabled = true;
-
-    }
-    else{
-
-        console.log(state.page);
-
-        state.pageWhenSearchIsGreaterThanTwelve++;
-
-        console.log("pageWhenSearchIsGreaterThanTwelve", state.pageWhenSearchIsGreaterThanTwelve);
-
-        if(state.pageWhenSearchIsGreaterThanTwelve > 1) prevBtnEl.disabled = false;
-    
-        if(state.pageWhenSearchIsGreaterThanTwelve === state.totalPages) nextBtnEl.disabled = true;
-
-    }
-
-
-    mainSectionEl.scrollIntoView(true);
+    mainEl.scrollIntoView(true);
 
     displayUsers(state.usersArray);
 
@@ -49,34 +22,9 @@ nextBtnEl.addEventListener("click", () => {
 
 prevBtnEl.addEventListener("click", () => {
 
-    if(!state.isGreater){
+    NextPrevBtn(false);
 
-        console.log(state.pageWhenSearchIsGreaterThanTwelve);
-
-        state.page--;
-
-        console.log("page: ", state.page);
-
-        if(state.page === 1) prevBtnEl.disabled = true;
-    
-        if(state.page < state.totalPages) nextBtnEl.disabled = false;
-
-    }
-    else {
-
-        console.log(state.page);
-
-        state.pageWhenSearchIsGreaterThanTwelve--;
-
-        console.log("pageWhenSearchIsGreaterThanTwelve", state.pageWhenSearchIsGreaterThanTwelve);
-
-        if(state.pageWhenSearchIsGreaterThanTwelve === 1) prevBtnEl.disabled = true;
-
-        if(state.pageWhenSearchIsGreaterThanTwelve < state.totalPages) nextBtnEl.disabled = false;
-    }
-
-
-    mainSectionEl.scrollIntoView(true);
+    mainEl.scrollIntoView(true);
 
     displayUsers(state.usersArray);
 
@@ -98,14 +46,12 @@ export function renderButtons(array){
 
         prevBtnEl.style.display = "none";
 
-
     }
     else {
 
         nextBtnEl.style.display = "block";
 
         prevBtnEl.style.display = "block";
-
 
     }
 
@@ -115,3 +61,90 @@ export function renderButtons(array){
 // if the filtered array's length is greater than 12, we'll have to create pagination for the returned array.
 // new and separate page variable for filtered array
 // calculate how many users per page will be displayed
+
+
+function NextPrevBtn(nextOrPrev){
+    //If user is filtering, and returned array contains more than 12 users, we'll update another page variable, otherwise just the regular
+
+    if(!state.isGreater){
+        
+        nextOrPrev ? state.page++ : state.page--;
+    
+        pageInfoEl.innerText = `page: ${state.page}`;
+
+        prevBtnEl.disabled = nextOrPrev && state.page > 1 && false || !nextOrPrev && state.page === 1 && true;
+
+        nextBtnEl.disabled = nextOrPrev && state.page === state.totalPages && true || !nextOrPrev && state.page < state.totalPages && false;
+    
+    }
+    else{
+    
+        nextOrPrev ? state.pageWhenSearchIsGreaterThanTwelve++ : state.pageWhenSearchIsGreaterThanTwelve--;
+    
+        pageInfoEl.innerText = `page: ${state.pageWhenSearchIsGreaterThanTwelve}`;
+
+        prevBtnEl.disabled = nextOrPrev && state.pageWhenSearchIsGreaterThanTwelve > 1 && false || !nextOrPrev && state.pageWhenSearchIsGreaterThanTwelve === 1 && true;
+
+        nextBtnEl.disabled = nextOrPrev && state.pageWhenSearchIsGreaterThanTwelve === state.totalPages && true || !nextOrPrev && state.pageWhenSearchIsGreaterThanTwelve < state.totalPages && false;
+    
+    }
+}
+
+
+
+
+
+
+
+
+
+// THIS WAS PART OF NEXT BTN FUNC 
+
+    // if(!state.isGreater){
+
+    //     state.page++;
+
+    //     pageInfoEl.innerText = `page: ${state.page}`;
+
+    //     if(state.page > 1) prevBtnEl.disabled = false;
+    
+    //     if(state.page === state.totalPages) nextBtnEl.disabled = true;
+
+    // }
+    // else{
+
+    //     state.pageWhenSearchIsGreaterThanTwelve++;
+
+    //     pageInfoEl.innerText = `page: ${state.pageWhenSearchIsGreaterThanTwelve}`;
+
+    //     if(state.pageWhenSearchIsGreaterThanTwelve > 1) prevBtnEl.disabled = false;
+    
+    //     if(state.pageWhenSearchIsGreaterThanTwelve === state.totalPages) nextBtnEl.disabled = true;
+
+    // }
+
+
+
+// THIS WAS PART OF PREV BTN FUNC 
+
+    // if(!state.isGreater){
+
+    //     state.page--;
+
+    //     pageInfoEl.innerText = `page: ${state.page}`;
+
+    //     if(state.page === 1) prevBtnEl.disabled = true;
+    
+    //     if(state.page < state.totalPages) nextBtnEl.disabled = false;
+
+    // }
+    // else {
+
+    //     state.pageWhenSearchIsGreaterThanTwelve--;
+
+    //     pageInfoEl.innerText = `page: ${state.pageWhenSearchIsGreaterThanTwelve}`;
+
+    //     if(state.pageWhenSearchIsGreaterThanTwelve === 1) prevBtnEl.disabled = true;
+
+    //     if(state.pageWhenSearchIsGreaterThanTwelve < state.totalPages) nextBtnEl.disabled = false;
+    // }

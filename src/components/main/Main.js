@@ -62,12 +62,18 @@ export function displayUsers(array){
 
         if(filteredArray.length > 12){
 
+            //reference to know if there should be pagination in the filtered array
             state.isGreater = true;
 
-            //In case user had previously moved to a different page, and then searched user, we set it back to 1 in order to avoid glitches
+            //In case user had previously moved to a different page, and then searched user, we set it back to 1 in order to avoid glitches, when user clears input field
             state.page = 1;
 
+            pageInfoEl.innerText = `page: ${state.pageWhenSearchIsGreaterThanTwelve}`;
+
+            // if user had PAGE var greater than 1, the PREVBTN would be enabled, but if user filters, a new list will render starting from PAGEWHENGREATER which is 1, but PREVBTN was enabled, hence we disable it with the code below
             prevBtnEl.disabled = state.pageWhenSearchIsGreaterThanTwelve === 1 ? true : false;
+
+            //if user had PAGE variable in 5, but then filters user, a new list is render but the NEXTBTN is disabled, thus we enable it with the code below
             nextBtnEl.disabled = state.pageWhenSearchIsGreaterThanTwelve === state.totalPages ? true : false;
 
             //Calculate how many users will be in each page, based done the length of the filteredArray
@@ -81,6 +87,10 @@ export function displayUsers(array){
 
         }
         else {
+            pageInfoEl.innerText = `page: ${state.page}`;
+
+            state.pageWhenSearchIsGreaterThanTwelve = 1; 
+            
             state.isGreater = false;
 
             filteredArray.forEach((element) => {
@@ -103,7 +113,12 @@ export function displayUsers(array){
     //In case user filtered use with searchBar, and moved to a different page in the filtered array, we move our MAIN page var back to its default state in order to avoid bugs
     state.pageWhenSearchIsGreaterThanTwelve = 1;
 
+    pageInfoEl.innerText = `page: ${state.page}`;
+
+    //if user had filtered users and moved through pages, and PAGEWHEN... variable is greater than 1, but now user clears the input, we'll render the regular list from page 1, but PREVBTN was enabled, thus we disable it with code below
     prevBtnEl.disabled = state.page === 1 ? true : false;
+
+    //if user had filtered users and moved through pages, and PAGEWHEN... variable is equal 5, the NEXTBTN will be disabled. But if user clears the input field, the regular list will be rendered, but NEXTBTN will be disabled, impeding user to move. Thus we enable NEXTBTN with code below
     nextBtnEl.disabled = state.page === state.totalPages ? true : false;
 
 
@@ -168,19 +183,5 @@ function updatePartUI(boolean = true){
 
 }
 
-//TRUE
-// spinnerEl.classList.add("visible");
-// renderButtons(state.usersArray);
-// inputEl.disabled = true;
-// usersInfoEl.style.display = "none";
-// pageInfoEl.style.display = "none";
-
-    
-//FALSE
-// spinnerEl.classList.remove("visible");
-// renderButtons(state.usersArray);
-// inputEl.disabled = false;
-// usersInfoEl.style.display = "block";
-// pageInfoEl.style.display = "block";
 
 export default displayUsers;

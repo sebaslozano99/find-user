@@ -4,6 +4,7 @@ export const API_URL = "https://randomuser.me/api";
 
 
 //DOM ELEMENTS
+export const mainEl = document.querySelector("body");
 export const mainSectionEl = document.querySelector(".main__section");
 export const spinnerEl = document.querySelector(".spinner");
 export const nextBtnEl = document.querySelector(".main__btn-container--btn.next");
